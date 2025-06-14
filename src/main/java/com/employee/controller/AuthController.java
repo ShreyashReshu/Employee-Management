@@ -11,7 +11,7 @@ import com.employee.repository.RoleRepository;
 import com.employee.repository.UserRepository;
 import com.employee.security.jwt.JwtUtils;
 import com.employee.security.services.UserDetailsImpl;
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -117,4 +117,4 @@ public class AuthController {
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
-} 
+}

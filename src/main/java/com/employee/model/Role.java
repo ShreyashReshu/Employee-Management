@@ -1,6 +1,6 @@
 package com.employee.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -22,4 +22,4 @@ public class Role {
     public Role(ERole name) {
         this.name = name;
     }
-} 
+}

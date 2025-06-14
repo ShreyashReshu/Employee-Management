@@ -1,6 +1,6 @@
 package com.employee.payload.request;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {
     @NotBlank
@@ -24,4 +24,4 @@ public class LoginRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-} 
+}

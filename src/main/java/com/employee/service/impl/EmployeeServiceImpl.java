@@ -48,4 +48,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> findByStatus(Employee.EmploymentStatus status) {
         return employeeRepository.findByStatus(status);
     }
-} 
+}

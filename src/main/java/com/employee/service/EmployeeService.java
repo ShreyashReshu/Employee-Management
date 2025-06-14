@@ -12,4 +12,15 @@ public interface EmployeeService {
     boolean existsByEmail(String email);
     List<Employee> findByDepartment(String department);
     List<Employee> findByStatus(Employee.EmploymentStatus status);
-} 
+
+    // Controller-expected methods for compatibility
+    default List<Employee> getAllEmployees() { return findAll(); }
+    default Optional<Employee> getEmployeeById(Long id) { return findById(id); }
+    default Employee createEmployee(Employee employee) { return save(employee); }
+    default Optional<Employee> updateEmployee(Long id, Employee employee) {
+        if (!findById(id).isPresent()) return Optional.empty();
+        employee.setId(id);
+        return Optional.of(save(employee));
+    }
+    default void deleteEmployee(Long id) { deleteById(id); }
+}
