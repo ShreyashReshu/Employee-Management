@@ -4,19 +4,12 @@ const apiBase = '/api';
 document.addEventListener('DOMContentLoaded', () => {
     // Auth UI
     const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
     const employeeSection = document.getElementById('employeeSection');
     const loginBtn = document.getElementById('loginBtn');
-    const registerBtn = document.getElementById('registerBtn');
     const logoutBtn = document.getElementById('logoutBtn');
 
     loginBtn.onclick = () => {
         loginForm.classList.remove('d-none');
-        registerForm.classList.add('d-none');
-    };
-    registerBtn.onclick = () => {
-        registerForm.classList.remove('d-none');
-        loginForm.classList.add('d-none');
     };
     logoutBtn.onclick = () => {
         token = null;
@@ -24,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
         loginForm.classList.remove('d-none');
         logoutBtn.classList.add('d-none');
         loginBtn.classList.remove('d-none');
-        registerBtn.classList.remove('d-none');
     };
 
     // Login
@@ -44,29 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
             employeeSection.classList.remove('d-none');
             logoutBtn.classList.remove('d-none');
             loginBtn.classList.add('d-none');
-            registerBtn.classList.add('d-none');
             loadEmployees();
         } else {
             alert('Login failed');
-        }
-    };
-
-    // Register
-    document.getElementById('registerFormElement').onsubmit = async (e) => {
-        e.preventDefault();
-        const username = document.getElementById('registerUsername').value;
-        const password = document.getElementById('registerPassword').value;
-        const res = await fetch(apiBase + '/auth/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
-        });
-        if (res.ok) {
-            alert('Registration successful! Please login.');
-            registerForm.classList.add('d-none');
-            loginForm.classList.remove('d-none');
-        } else {
-            alert('Registration failed');
         }
     };
 
@@ -117,28 +89,31 @@ async function loadEmployees() {
     tbody.innerHTML = '';
     employees.forEach(emp => {
         const tr = document.createElement('tr');
+        const name = (emp.firstName || '') + (emp.lastName ? ' ' + emp.lastName : '');
         tr.innerHTML = `
-            <td>${emp.name}</td>
+            <td>${name}</td>
             <td>${emp.email}</td>
             <td>${emp.position}</td>
             <td>${emp.department}</td>
             <td>${emp.salary}</td>
             <td>
-                <button class=\"btn btn-sm btn-warning\" onclick=\"editEmployee(${emp.id}, '${emp.name}', '${emp.email}', '${emp.position}', '${emp.department}', ${emp.salary})\">Edit</button>
-                <button class=\"btn btn-sm btn-danger\" onclick=\"deleteEmployee(${emp.id})\">Delete</button>
+                <button class=\"btn btn-sm btn-warning\" onclick=\"editEmployee(${emp.id}, '${emp.firstName}', '${emp.lastName}', '${emp.email}', '${emp.position}', '${emp.department}', ${emp.salary}, '${emp.phoneNumber}', '${emp.hireDate}')\">Edit</button>
+                <button class=\"btn btn-sm btn-danger d-none\" onclick=\"deleteEmployee(${emp.id})\">Delete</button>
             </td>
         `;
         tbody.appendChild(tr);
     });
 }
 
-window.editEmployee = function(id, name, email, position, department, salary) {
+window.editEmployee = function(id, firstName, lastName, email, position, department, salary, phoneNumber, hireDate) {
     document.getElementById('employeeId').value = id;
-    document.getElementById('name').value = name;
+    document.getElementById('name').value = (firstName || '') + (lastName ? ' ' + lastName : '');
     document.getElementById('email').value = email;
     document.getElementById('position').value = position;
     document.getElementById('department').value = department;
     document.getElementById('salary').value = salary;
+    if(document.getElementById('phoneNumber')) document.getElementById('phoneNumber').value = phoneNumber || '';
+    if(document.getElementById('hireDate')) document.getElementById('hireDate').value = hireDate || '';
     var modal = new bootstrap.Modal(document.getElementById('employeeModal'));
     modal.show();
 };
