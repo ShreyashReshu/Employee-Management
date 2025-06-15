@@ -1,113 +1,84 @@
 # Employee Management System
 
-A robust employee management system built with Spring Boot, featuring JWT authentication and role-based access control.
+A robust, flexible, and user-friendly employee management system built with Spring Boot (Java), featuring JWT token-based authentication, secure CRUD APIs, and a modern web UI.
+
+## Objective
+
+Develop an employee management system that ensures reusability, security, and functionality. The system is designed to be robust, flexible, and user-friendly.
+
+
+
+## Scope
+- Backend development using Java (Spring Boot)
+- H2 in-memory database for easy setup (can be switched to PostgreSQL)
+- User-friendly frontend website with backend API integration
 
 ## Features
-
-- User authentication with JWT
+- Token-based authentication (JWT)
+- Secure login/logout
+- CRUD (Add, Update, Delete) operations for employees
 - Role-based access control (USER, MODERATOR, ADMIN)
-- CRUD operations for employee management
-- Department-based employee organization
-- Employee status tracking
-- Secure password handling
-- PostgreSQL database integration
+- Department and status tracking
+- Responsive web UI (Bootstrap)
 
-## Prerequisites
-
+## Requirements
 - Java 17 or higher
 - Maven
-- PostgreSQL
-- IDE (IntelliJ IDEA, Eclipse, or VS Code)
 
-## Database Setup
 
-1. Create a PostgreSQL database:
-```sql
-CREATE DATABASE employee_management;
-```
+## Quick Start
 
-2. Update the database configuration in `src/main/resources/application.properties` if needed:
-```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/employee_management
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-```
-
-## Building and Running
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd employee-management
-```
-
-2. Build the project:
-```bash
-mvn clean install
-```
-
-3. Run the application:
-```bash
-mvn spring-boot:run
-```
-
-The application will be available at `http://localhost:8080`
+1. **Clone the repository:**
+   ```bash
+   git clone <repository-url>
+   cd employee-management
+   ```
+2. **Build and run:**
+   ```bash
+   mvn clean install
+   ./mvnw spring-boot:run
+   ```
+3. **Access the app:**
+   - Frontend: [http://localhost:8082](http://localhost:8082)
+   - H2 Console: [http://localhost:8082/h2-console](http://localhost:8082/h2-console)
 
 ## API Endpoints
 
 ### Authentication
-- POST `/api/auth/signup` - Register a new user
-- POST `/api/auth/signin` - Login user
+- POST `/api/auth/signin` - Login user (JWT token)
 
 ### Employee Management
-- GET `/api/employees` - Get all employees (requires authentication)
-- GET `/api/employees/{id}` - Get employee by ID (requires authentication)
-- POST `/api/employees` - Create new employee (requires MODERATOR or ADMIN role)
-- PUT `/api/employees/{id}` - Update employee (requires MODERATOR or ADMIN role)
-- DELETE `/api/employees/{id}` - Delete employee (requires ADMIN role)
-- GET `/api/employees/department/{department}` - Get employees by department (requires authentication)
-- GET `/api/employees/status/{status}` - Get employees by status (requires MODERATOR or ADMIN role)
+- GET `/api/employees` - List all employees
+- POST `/api/employees` - Add employee
+- PUT `/api/employees/{id}` - Update employee
+- DELETE `/api/employees/{id}` - Delete employee
 
-## Security
-
-- JWT-based authentication
-- Password encryption using BCrypt
-- Role-based access control
-- Secure session management
-- CORS configuration
-
-## Testing
-
-Run the tests using Maven:
-```bash
-mvn test
-```
+> All endpoints require authentication (JWT token in `Authorization` header).
 
 ## Project Structure
 
 ```
 src/main/java/com/employee/
 ├── controller/         # REST controllers
-├── model/             # Entity classes
-├── repository/        # Data access layer
-├── security/          # Security configuration
-│   ├── jwt/          # JWT utilities
-│   └── services/     # User details service
-├── service/           # Business logic
-│   └── impl/         # Service implementations
-└── payload/          # Request/Response DTOs
-    ├── request/      # Request payloads
-    └── response/     # Response payloads
+├── model/              # Entity classes
+├── repository/         # Data access layer
+├── security/           # Security configuration
+├── service/            # Business logic
+└── payload/            # Request/Response DTOs
 ```
 
-## Contributing
+## Demo Users
+- **Username:** admin, **Password:** admin (role: ADMIN)
+-
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+## Notes
+- Registration is disabled for security. Use provided demo users to log in.
+- The system uses an in-memory H2 database by default for easy testing. Switch to PostgreSQL by editing `application.properties`.
 
-## License
+## Deliverables
+- GitHub repository URL of the codebase
+- Project documentation (this README)
+- Deployment URL (Optional)
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+---
+
